@@ -1,0 +1,20 @@
+--- a/tools/Linux/kodi.sh.in      2016-01-11 05:41:24.000000000 +0800
++++ b/tools/Linux/kodi.sh.in     2016-01-17 11:07:03.669730000 +0800
+@@ -28,6 +28,7 @@
+ CRASHLOG_DIR=${CRASHLOG_DIR:-$HOME}
+ USERDATA_DIR="${HOME}/.${bin_name}"
+ 
++ENV_ARGS=" KODI_HOME=/usr/share/kodi KODI_BIN_HOME=/usr/lib/kodi LD_LIBRARY_PATH=/usr/lib:/usr/gcc/4.9/lib:/usr/sfw/lib LD_PRELOAD=/usr/lib/libuuid.so"
+ 
+ # Check for some options used by this script
+ while [ "$#" -gt "0" ]
+@@ -153,7 +154,7 @@
+ while [ $(( $LOOP )) = "1" ]
+ do
+   LOOP=0
+-  "$LIBDIR/${bin_name}/${bin_name}.bin" $SAVED_ARGS
++  /usr/bin/env $ENV_ARGS "$LIBDIR/${bin_name}/${bin_name}.bin" $SAVED_ARGS
+   RET=$?
+   if [ $(( $RET == 65 )) = "1" ]
+   then # User requested to restart app
+

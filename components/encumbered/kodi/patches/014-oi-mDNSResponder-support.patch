@@ -1,0 +1,46 @@
+--- a/xbmc/network/mdns/ZeroconfMDNS.h 2016-01-11 05:41:24.000000000 +0800
++++ b/xbmc/network/mdns/ZeroconfMDNS.h 2016-01-16 21:02:05.776304375 +0800
+@@ -21,7 +21,11 @@
+ 
+ #include "network/Zeroconf.h"
+ #include "threads/CriticalSection.h"
+-#include <dns_sd.h>
++#if defined(TARGET_SOLARIS)
++#include <mDNSResponder/dns_sd.h>
++#else
++#include  <dns_sd.h>
++#endif
+ #include "threads/Thread.h"
+ 
+ #include <memory>
+--- a/xbmc/network/mdns/ZeroconfBrowserMDNS.h  2016-01-11 05:41:24.000000000 +0800
++++ b/xbmc/network/mdns/ZeroconfBrowserMDNS.h 2016-01-16 21:04:41.055101667 +0800
+@@ -23,7 +23,11 @@
+ #include <memory>
+ #include <utility>
+ 
+-#include <dns_sd.h>
++#if defined(TARGET_SOLARIS)
++#include <mDNSResponder/dns_sd.h>
++#else
++#include  <dns_sd.h>
++#endif
+ 
+ #include "network/ZeroconfBrowser.h"
+ #include "threads/CriticalSection.h"
+--- a/xbmc/network/mdns/ZeroconfMDNS.cpp       2016-01-11 05:41:24.000000000 +0800
++++ b/xbmc/network/mdns/ZeroconfMDNS.cpp        2016-01-16 21:46:19.685179328 +0800
+@@ -31,7 +31,12 @@
+ #endif //TARGET_WINDOWS
+ 
+ #if defined(HAS_MDNS_EMBEDDED)
+-#include <mDnsEmbedded.h>
++#if defined(TARGET_SOLARIS)
++       #include <sys/types.h>
++       #include <netinet/in.h>
++       #include <inttypes.h>
++#endif
++#include <mDNSResponder/mDnsEmbedded.h>
+ #endif //HAS_MDNS_EMBEDDED
+ 
+ #pragma comment(lib, "dnssd.lib")
