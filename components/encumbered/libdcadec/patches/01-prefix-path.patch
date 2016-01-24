@@ -1,0 +1,14 @@
+diff -uNr dcadec-0.2.0/Makefile dcadec-0.2.0-o/Makefile
+--- dcadec-0.2.0/Makefile       2016-01-05 00:22:35.000000000 +0800
++++ dcadec-0.2.0-o/Makefile     2016-01-14 22:38:46.401625332 +0800
+@@ -6,7 +6,8 @@
+ 
+ CFLAGS := -std=gnu99 -D_FILE_OFFSET_BITS=64 -Wall -Wextra -O3 -ffast-math -g -MMD $(CFLAGS)
+ 
+-PREFIX ?= /usr/local
++PREFIX ?= /usr
++CONFIG_SHARED = 1
+ BINDIR ?= $(PREFIX)/bin
+ LIBDIR ?= $(PREFIX)/lib
+ INCLUDEDIR ?= $(PREFIX)/include
+
